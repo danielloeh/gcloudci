@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cloud-app
+spec:
+  selector:
+    app: CloudApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
