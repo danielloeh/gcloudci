@@ -1,7 +1,31 @@
-deploy:
-  provider: gae
-  keyfile: client-secrets.json
-  project: gcelearn-173822
+sudo: required
+language: node_js
+node_js:
+  - "iojs"
+  - "7"
+  
+# Cache our Gcloud SDK between commands
+cache:
+  directories:
+  - "$HOME/google-cloud-sdk/"
+  
 before_install:
+- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf;$HOME/google-cloud-sdk; curl https://sdk.cloud.google.com | bash; fi
+
+# Add gcloud to $PATH
+- source /home/travis/google-cloud-sdk/path.bash.inc
+
+# Unencrypt secrets
 - openssl aes-256-cbc -K $encrypted_5b4287e6aacf_key -iv $encrypted_5b4287e6aacf_iv
   -in client-secrets.json.enc -out client-secrets.json -d
+
+- gcloud auth activate-service-account --key-file client-secrets.json
+	
+install:
+# Set the correct project to deploy to
+- gcloud config set project gcelearn-173822
+
+script:
+- kubectl get services
+	
+
