@@ -17,9 +17,9 @@ before_install:
 
 # Unencrypt secrets
 - openssl aes-256-cbc -K $encrypted_5b4287e6aacf_key -iv $encrypted_5b4287e6aacf_iv -in client-secrets.json.enc -out client-secrets.json -d
-
+# Here we use the decrypted service account credentials to authenticate the command line tool
 - gcloud auth activate-service-account --key-file client-secrets.json
-	
+
 install:
 # Set the correct project to deploy to
 - gcloud config set project gcelearn-173822
@@ -28,5 +28,3 @@ script:
 - kubectl get services
 
 # https://docs.travis-ci.com/user/build-stages/
-	
-
