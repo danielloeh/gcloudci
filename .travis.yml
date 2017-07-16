@@ -1,6 +1,6 @@
 deploy:
   provider: gae
-  keyfile: client-secret.json
+  keyfile: client-secrets.json
   project: gcelearn-173822
 before_install:
 - openssl aes-256-cbc -K $encrypted_5b4287e6aacf_key -iv $encrypted_5b4287e6aacf_iv
